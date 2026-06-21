@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Translator - Traduire instantanément</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="/" class="nav-logo">
+            <div class="nav-logo-icon">文A</div>
+            AI Translator
+        </a>
+        <ul class="nav-links">
+            <li><a href="/" class="active">Accueil</a></li>
+            <li><a href="/translate">Traduction</a></li>
+            <li><a href="#features">Fonctionnalités</a></li>
+            <li><a href="#how">À propos</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeBtn">🌙</button>
+            <a href="/translate" class="btn-primary">Commencer</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-left">
+            <div class="hero-badge">✨ Powered by Artificial Intelligence</div>
+            <h1 class="hero-title">Translate Any<br>Language <span>Instantly</span></h1>
+            <p class="hero-desc">Powered by Artificial Intelligence, our platform helps you communicate with people around the world in seconds.</p>
+            <div class="hero-btns">
+                <a href="/translate" class="btn-hero-primary">↗ Start Translating</a>
+                <a href="#how" class="btn-hero-outline">▶ Learn More</a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="globe-wrap">
+                <svg class="globe-svg" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="160" cy="160" r="130" fill="var(--globe-color)" opacity="0.3"/>
+                    <circle cx="160" cy="160" r="130" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4 4" opacity="0.3"/>
+                    <circle cx="160" cy="160" r="100" fill="var(--globe-color)" opacity="0.5"/>
+                    <ellipse cx="160" cy="160" rx="50" ry="100" stroke="var(--accent)" stroke-width="0.8" opacity="0.4"/>
+                    <ellipse cx="160" cy="160" rx="100" ry="40" stroke="var(--accent)" stroke-width="0.8" opacity="0.4"/>
+                    <path d="M120 100 Q140 90 155 110 Q170 95 180 105 Q195 100 200 115 Q185 120 175 130 Q185 140 170 145 Q155 135 140 145 Q125 140 120 125 Q110 115 120 100Z" fill="var(--accent)" opacity="0.6"/>
+                    <path d="M90 140 Q105 135 115 148 Q108 160 95 155 Q85 150 90 140Z" fill="var(--accent)" opacity="0.4"/>
+                    <path d="M200 135 Q215 128 225 140 Q230 155 218 160 Q205 158 200 145Z" fill="var(--accent)" opacity="0.5"/>
+                </svg>
+                <div class="lang-bubble hello">Hello</div>
+                <div class="lang-bubble hola">Hola</div>
+                <div class="lang-bubble bonjour">Bonjour</div>
+                <div class="lang-bubble chinese">你好</div>
+                <div class="lang-bubble arabic">مرحيا</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features-strip" id="features">
+        <div class="feat-item">
+            <div class="feat-icon blue">⚡</div>
+            <div>
+                <div class="feat-title">Traduction instantanée</div>
+                <div class="feat-desc">Obtenez des traductions en quelques secondes.</div>
+            </div>
+        </div>
+        <div class="feat-item">
+            <div class="feat-icon purple">🧠</div>
+            <div>
+                <div class="feat-title">Intelligence Artificielle</div>
+                <div class="feat-desc">Des traductions intelligentes et contextuelles.</div>
+            </div>
+        </div>
+        <div class="feat-item">
+            <div class="feat-icon green">🌐</div>
+            <div>
+                <div class="feat-title">Plus de 100 langues</div>
+                <div class="feat-desc">Communiquez partout dans le monde.</div>
+            </div>
+        </div>
+        <div class="feat-item">
+            <div class="feat-icon orange">🔊</div>
+            <div>
+                <div class="feat-title">Text-to-Speech</div>
+                <div class="feat-desc">Écoutez la prononciation des traductions.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMENT CA MARCHE + TEMOIGNAGES -->
+    <section class="how-reviews" id="how">
+        <div class="how">
+            <h2 class="section-title">Comment ça fonctionne ?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num s1">1</div>
+                    <div class="step-content">
+                        <h4>Entrez votre texte</h4>
+                        <p>Saisissez le texte que vous souhaitez traduire.</p>
+                    </div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-num s2">2</div>
+                    <div class="step-content">
+                        <h4>Choisissez les langues</h4>
+                        <p>Sélectionnez la langue source et la langue cible.</p>
+                    </div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-num s3">3</div>
+                    <div class="step-content">
+                        <h4>Obtenez le résultat</h4>
+                        <p>L'IA génère immédiatement la traduction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="reviews">
+            <h2 class="section-title">Ce que disent nos utilisateurs</h2>
+            <div class="review-cards">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"This app helped me communicate with international clients easily."</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar" style="background:#2563eb;">EJ</div>
+                        <div>
+                            <div class="reviewer-name">Emma Johnson</div>
+                            <div class="reviewer-title">Business Owner</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Fast, accurate and easy to use. Highly recommended!"</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar" style="background:#7c3aed;">ML</div>
+                        <div>
+                            <div class="reviewer-name">Michael Lee</div>
+                            <div class="reviewer-title">Entrepreneur</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">文A</div>
+                    AI Translator
+                </div>
+                <p>Brisez les barrières linguistiques grâce à l'Intelligence Artificielle.</p>
+                <div class="social-links">
+                    <a class="social-btn" href="#">f</a>
+                    <a class="social-btn" href="#">𝕏</a>
+                    <a class="social-btn" href="#">in</a>
+                    <a class="social-btn" href="#">📷</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Liens rapides</h5>
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/translate">Traduction</a></li>
+                    <li><a href="#features">Fonctionnalités</a></li>
+                    <li><a href="#how">À propos</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Ressources</h5>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Restez connecté</h5>
+                <p>Abonnez-vous pour recevoir nos mises à jour.</p>
+                <div class="email-row">
+                    <input type="email" placeholder="Votre email">
+                    <button>→</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 AI Language Translator. Tous droits réservés.</div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Translator - Traduction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/translate.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="/" class="nav-logo">
+            <div class="nav-logo-icon">文A</div>
+            AI Translator
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/translate" class="active">Traduction</a></li>
+            <li><a href="/#features">Fonctionnalités</a></li>
+            <li><a href="/#how">À propos</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeBtn">🌙</button>
+            <a href="/translate" class="btn-primary">Commencer</a>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="translate-header">
+        <h1>Traduction <span>Instantanée</span></h1>
+        <p>Traduisez du texte dans plus de 100 langues grâce à l'Intelligence Artificielle</p>
+    </section>
+
+    <!-- TRANSLATE BOX -->
+    <section class="translate-section">
+        <div class="translate-box">
+
+            <!-- LANGUE SOURCE -->
+            <div class="translate-panel">
+                <div class="panel-header">
+                    <select class="lang-select" id="sourceLang">
+                        <option value="auto">Détecter la langue</option>
+                    </select>
+                    <span class="char-count" id="charCount">0 / 500</span>
+                </div>
+                <textarea 
+                    class="translate-textarea" 
+                    id="sourceText" 
+                    placeholder="Entrez votre texte ici..."
+                    maxlength="500"
+                ></textarea>
+                <div class="panel-footer">
+                    <button class="icon-btn" id="clearBtn" title="Effacer">🗑️ Effacer</button>
+                    <button class="icon-btn" id="speakSourceBtn" title="Écouter">🔊 Écouter</button>
+                </div>
+            </div>
+
+            <!-- BOUTON SWAP -->
+            <div class="swap-container">
+                <button class="swap-btn" id="swapBtn" title="Inverser les langues">⇄</button>
+            </div>
+
+            <!-- LANGUE CIBLE -->
+            <div class="translate-panel">
+                <div class="panel-header">
+                    <select class="lang-select" id="targetLang">
+                        <option value="en">Anglais</option>
+                    </select>
+                    <button class="copy-btn" id="copyBtn" title="Copier">📋 Copier</button>
+                </div>
+                <textarea 
+                    class="translate-textarea result" 
+                    id="translatedText" 
+                    placeholder="La traduction apparaîtra ici..."
+                    readonly
+                ></textarea>
+                <div class="panel-footer">
+                    <span class="translation-info" id="translationInfo"></span>
+                    <button class="icon-btn" id="speakTargetBtn" title="Écouter">🔊 Écouter</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BOUTON TRADUIRE -->
+        <div class="translate-btn-container">
+            <button class="translate-btn" id="translateBtn">
+                <span id="btnText">✨ Traduire</span>
+                <span id="btnLoader" style="display:none;">⏳ Traduction en cours...</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- HISTORIQUE -->
+    <section class="history-section">
+        <h2 class="section-title">📋 Historique des traductions</h2>
+        <div class="history-list" id="historyList">
+            <p class="no-history">Aucune traduction pour le moment.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">文A</div>
+                    AI Translator
+                </div>
+                <p>Brisez les barrières linguistiques grâce à l'Intelligence Artificielle.</p>
+                <div class="social-links">
+                    <a class="social-btn" href="#">f</a>
+                    <a class="social-btn" href="#">𝕏</a>
+                    <a class="social-btn" href="#">in</a>
+                    <a class="social-btn" href="#">📷</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Liens rapides</h5>
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/translate">Traduction</a></li>
+                    <li><a href="/#features">Fonctionnalités</a></li>
+                    <li><a href="/#how">À propos</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Ressources</h5>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Restez connecté</h5>
+                <p>Abonnez-vous pour recevoir nos mises à jour.</p>
+                <div class="email-row">
+                    <input type="email" placeholder="Votre email">
+                    <button>→</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 AI Language Translator. Tous droits réservés.</div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/translate.js') }}"></script>
+</body>
+</html>
