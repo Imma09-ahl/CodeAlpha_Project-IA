@@ -1,6 +1,7 @@
 import pymysql
 from models.language_model import get_connection
 
+
 def save_translation(source_text, translated_text, source_language, target_language):
     connection = get_connection()
     try:
@@ -13,6 +14,7 @@ def save_translation(source_text, translated_text, source_language, target_langu
     finally:
         connection.close()
 
+
 def get_translation_history():
     connection = get_connection()
     try:
@@ -20,5 +22,15 @@ def get_translation_history():
             cursor.execute("""SELECT * FROM translations 
                             ORDER BY created_at DESC LIMIT 10""")
             return cursor.fetchall()
+    finally:
+        connection.close()
+
+
+def clear_all_translations():
+    connection = get_connection()
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("DELETE FROM translations")
+        connection.commit()
     finally:
         connection.close()

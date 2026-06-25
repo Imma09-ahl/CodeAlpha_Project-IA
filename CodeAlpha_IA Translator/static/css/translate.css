@@ -287,3 +287,29 @@
     color: var(--text3);
     white-space: nowrap;
 }
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.history-header .section-title {
+    margin-bottom: 0;
+}
+
+.clear-btn {
+    background: none;
+    border: 1px solid #dc2626;
+    color: #dc2626;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.clear-btn:hover {
+    background: #dc2626;
+    color: white;
+}

@@ -185,3 +185,23 @@ async function loadHistory() {
 // ===========================
 loadLanguages();
 loadHistory();
+// ===========================
+// EFFACER L'HISTORIQUE
+// ===========================
+const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+
+clearHistoryBtn.addEventListener('click', async () => {
+    if (!confirm('Voulez-vous vraiment effacer tout l\'historique ?')) return;
+    
+    try {
+        const response = await fetch('/api/history/clear', {
+            method: 'DELETE'
+        });
+        const data = await response.json();
+        if (data.success) {
+            historyList.innerHTML = '<p class="no-history">Aucune traduction pour le moment.</p>';
+        }
+    } catch (error) {
+        console.error('Erreur suppression historique:', error);
+    }
+});
