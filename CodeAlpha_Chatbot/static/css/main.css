@@ -1,0 +1,59 @@
+/* ===========================
+   VARIABLES & THEME
+=========================== */
+:root {
+    --bg: #f8f7ff;
+    --bg2: #ffffff;
+    --surface: #ffffff;
+    --text: #1a1a2e;
+    --text2: #4a4a6a;
+    --text3: #9090aa;
+    --border: rgba(0,0,0,0.08);
+    --purple: #6d28d9;
+    --purple2: #a855f7;
+    --purple-light: rgba(109,40,217,0.1);
+    --sidebar-bg: #0f0c1a;
+    --card-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+    --bg: #13111f;
+    --bg2: #1a1726;
+    --surface: #1a1726;
+    --text: #f0eeff;
+    --text2: #9090bb;
+    --text3: #5a5a7a;
+    --border: rgba(255,255,255,0.08);
+    --purple: #a855f7;
+    --purple2: #c084fc;
+    --purple-light: rgba(168,85,247,0.15);
+    --sidebar-bg: #0a0814;
+    --card-bg: #1e1b2e;
+}
+
+/* ===========================
+   RESET & BASE
+=========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+    height: 100vh;
+    overflow: hidden;
+}
+
+button {
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+input {
+    font-family: 'Inter', sans-serif;
+}

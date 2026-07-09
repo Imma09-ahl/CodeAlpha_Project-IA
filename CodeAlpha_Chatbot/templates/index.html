@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIBot FAQ - Assistant Intelligence Artificielle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-icon">🤖</div>
+            <div class="logo-text">
+                <h2>AIBot FAQ</h2>
+                <p>Votre assistant intelligent</p>
+            </div>
+        </div>
+
+        <button class="new-conv-btn" id="newConvBtn">
+            <i class="ti ti-plus"></i> Nouvelle conversation
+        </button>
+
+        <div class="sidebar-menu">
+            <div class="menu-item active">
+                <i class="ti ti-message-2"></i> Conversations
+            </div>
+            <div class="menu-item">
+                <i class="ti ti-star"></i> Favoris
+            </div>
+            <div class="menu-item">
+                <i class="ti ti-file-text"></i> Documents
+            </div>
+            <div class="menu-item">
+                <i class="ti ti-settings"></i> Paramètres
+            </div>
+        </div>
+
+        <div class="recent-label">Conversations récentes</div>
+        <div class="recent-list" id="recentList">
+            <div class="no-recent">Aucune conversation</div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="avatar">AI</div>
+            <div class="user-info">
+                <p>AIBot FAQ</p>
+                <span>assistant@aibot.com</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- HEADER -->
+        <div class="main-header">
+            <div>
+                <h3>Nouvelle conversation</h3>
+                <div class="online">
+                    <div class="online-dot"></div> En ligne
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="header-btn" id="clearBtn" title="Effacer la conversation">
+                    <i class="ti ti-trash"></i>
+                </button>
+                <button class="header-btn" id="themeBtn" title="Changer le thème">
+                    <i class="ti ti-sun"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- MESSAGES -->
+        <div class="messages" id="messages">
+            <div class="welcome-msg">
+                <div class="welcome-icon">🤖</div>
+                <h3>Bonjour ! Je suis AIBot FAQ</h3>
+                <p>Posez-moi vos questions sur l'Intelligence Artificielle, le Machine Learning, le Deep Learning et bien plus encore !</p>
+                <div class="suggestions">
+                    <button class="suggestion-btn" onclick="sendSuggestion(this)">C'est quoi l'IA ?</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion(this)">C'est quoi le machine learning ?</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion(this)">C'est quoi ChatGPT ?</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion(this)">Comment apprendre l'IA ?</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- INPUT -->
+        <div class="input-area">
+            <div class="input-wrap">
+                <input 
+                    type="text" 
+                    id="userInput" 
+                    placeholder="Écris ton message..."
+                    autocomplete="off"
+                >
+            </div>
+            <button class="send-btn" id="sendBtn">
+                <i class="ti ti-send"></i>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
