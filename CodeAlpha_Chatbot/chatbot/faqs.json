@@ -1,5 +1,9 @@
 [
   {
+    "question": "Bonjour  Salut  Hello",
+    "answer": " Bonjour ! Je suis le chatbot de CodeAlpha. Je peux répondre à vos questions sur l'intelligence artificielle, le machine learning, le deep learning, le NLP, la computer vision et bien plus encore. N'hésitez pas à me poser vos questions !"
+  },
+  {
     "question": "C'est quoi l'intelligence artificielle ? IA ?",
     "answer": "L'intelligence artificielle (IA) est une technologie qui permet aux machines de simuler l'intelligence humaine, comme apprendre, raisonner, résoudre des problèmes et comprendre le langage."
   },
