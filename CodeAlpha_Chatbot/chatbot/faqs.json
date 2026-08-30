@@ -4,7 +4,7 @@
     "answer": " Bonjour ! Je suis le chatbot de CodeAlpha. Je peux répondre à vos questions sur l'intelligence artificielle, le machine learning, le deep learning, le NLP, la computer vision et bien plus encore. N'hésitez pas à me poser vos questions !"
   },
   {
-    "question": "C'est quoi l'intelligence artificielle ? IA ?",
+    "question": "Qu'est ce que l'intelligence artificielle ? IA ?",
     "answer": "L'intelligence artificielle (IA) est une technologie qui permet aux machines de simuler l'intelligence humaine, comme apprendre, raisonner, résoudre des problèmes et comprendre le langage."
   },
   {
@@ -12,119 +12,119 @@
     "answer": "L'IA est le domaine général qui permet aux machines d'être intelligentes. Le machine learning est une sous-catégorie de l'IA qui permet aux machines d'apprendre automatiquement depuis les données sans être explicitement programmées."
   },
   {
-    "question": "C'est quoi le deep learning ?",
+    "question": "Qu'est ce que le deep learning ?",
     "answer": "Le deep learning est une technique de machine learning qui utilise des réseaux de neurones artificiels à plusieurs couches pour apprendre des représentations complexes des données."
   },
   {
-    "question": "C'est quoi un réseau de neurones ?",
+    "question": "Qu'est ce que un réseau de neurones ?",
     "answer": "Un réseau de neurones est un système informatique inspiré du cerveau humain. Il est composé de couches de neurones artificiels connectés qui traitent et transmettent des informations."
   },
   {
-    "question": "C'est quoi le NLP ?",
+    "question": "Qu'est ce que le NLP ?",
     "answer": "Le NLP (Natural Language Processing) ou traitement du langage naturel est une branche de l'IA qui permet aux machines de comprendre, interpréter et générer le langage humain."
   },
   {
-    "question": "C'est quoi la computer vision ?",
+    "question": "Qu'est ce que la computer vision ?",
     "answer": "La computer vision est une branche de l'IA qui permet aux machines de comprendre et d'interpréter les images et les vidéos comme le fait l'œil humain."
   },
   {
-    "question": "C'est quoi un algorithme ?",
+    "question": "Qu'est ce que un algorithme ?",
     "answer": "Un algorithme est une suite d'instructions précises et ordonnées qui permettent de résoudre un problème ou d'effectuer une tâche. C'est la base de tout programme informatique."
   },
   {
-    "question": "C'est quoi la data science ?",
+    "question": "Qu'est ce que la data science ?",
     "answer": "La data science est un domaine qui combine statistiques, programmation et IA pour extraire des connaissances et des insights utiles à partir de grandes quantités de données."
   },
   {
-    "question": "C'est quoi le machine learning supervisé ?",
+    "question": "Qu'est ce que le machine learning supervisé ?",
     "answer": "Le machine learning supervisé est une technique où le modèle apprend depuis des données étiquetées, c'est-à-dire des exemples avec les bonnes réponses, pour pouvoir faire des prédictions sur de nouvelles données."
   },
   {
-    "question": "C'est quoi le machine learning non supervisé ?",
+    "question": "Qu'est ce que le machine learning non supervisé ?",
     "answer": "Le machine learning non supervisé est une technique où le modèle apprend depuis des données non étiquetées pour découvrir des structures et des patterns cachés dans les données."
   },
   {
-    "question": "C'est quoi le reinforcement learning ?",
+    "question": "Qu'est ce que le reinforcement learning ?",
     "answer": "Le reinforcement learning est une technique de machine learning où un agent apprend à prendre des décisions en interagissant avec un environnement et en recevant des récompenses ou des punitions."
   },
   {
-    "question": "C'est quoi un modèle d'IA ?",
+    "question": "Qu'est ce que un modèle d'IA ?",
     "answer": "Un modèle d'IA est un programme mathématique entraîné sur des données pour faire des prédictions ou des décisions. Il apprend des patterns dans les données pour généraliser sur de nouvelles données."
   },
   {
-    "question": "C'est quoi le overfitting ?",
+    "question": "Qu'est ce que le overfitting ?",
     "answer": "Le overfitting ou surapprentissage est un problème où le modèle apprend trop bien les données d'entraînement et perd la capacité de généraliser sur de nouvelles données."
   },
   {
-    "question": "C'est quoi le underfitting ?",
+    "question": "Qu'est ce que le underfitting ?",
     "answer": "Le underfitting est un problème où le modèle est trop simple pour capturer les patterns dans les données, ce qui donne de mauvaises performances aussi bien sur les données d'entraînement que sur les nouvelles données."
   },
   {
-    "question": "C'est quoi une époque en machine learning ?",
+    "question": "Qu'est ce que une époque en machine learning ?",
     "answer": "Une époque (epoch) en machine learning est un passage complet à travers toutes les données d'entraînement. On entraîne généralement un modèle sur plusieurs époques pour améliorer ses performances."
   },
   {
-    "question": "C'est quoi le transfer learning ?",
+    "question": "Qu'est ce que le transfer learning ?",
     "answer": "Le transfer learning est une technique qui consiste à réutiliser un modèle déjà entraîné sur une tâche pour l'adapter à une nouvelle tâche similaire, ce qui économise du temps et des ressources."
   },
   {
-    "question": "C'est quoi ChatGPT ?",
+    "question": "Qu'est ce que ChatGPT ?",
     "answer": "ChatGPT est un modèle de langage développé par OpenAI basé sur l'architecture GPT. Il peut générer du texte, répondre à des questions, écrire du code et avoir des conversations naturelles avec les humains."
   },
   {
-    "question": "C'est quoi GPT ?",
+    "question": "Qu'est ce que GPT ?",
     "answer": "GPT (Generative Pre-trained Transformer) est une architecture de modèle de langage développée par OpenAI. Il est entraîné sur de grandes quantités de texte pour générer du texte cohérent et naturel."
   },
   {
-    "question": "C'est quoi un transformer ?",
+    "question": "Qu'est ce que un transformer ?",
     "answer": "Un transformer est une architecture de réseau de neurones introduite en 2017 qui utilise un mécanisme d'attention pour traiter les séquences de données. C'est la base de la plupart des modèles de langage modernes."
   },
   {
-    "question": "C'est quoi le big data ?",
+    "question": "Qu'est ce que le big data ?",
     "answer": "Le big data désigne des ensembles de données très volumineux, variés et générés à grande vitesse que les outils traditionnels ne peuvent pas traiter. L'IA et le machine learning sont souvent utilisés pour analyser le big data."
   },
   {
-    "question": "C'est quoi Python ?",
+    "question": "Qu'est ce que Python ?",
     "answer": "Python est un langage de programmation très populaire en IA et data science grâce à sa simplicité et ses nombreuses bibliothèques comme TensorFlow, PyTorch, scikit-learn et NLTK."
   },
   {
-    "question": "C'est quoi TensorFlow ?",
+    "question": "Qu'est ce que TensorFlow ?",
     "answer": "TensorFlow est une bibliothèque open source développée par Google pour créer et entraîner des modèles de machine learning et de deep learning."
   },
   {
-    "question": "C'est quoi PyTorch ?",
+    "question": "Qu'est ce que PyTorch ?",
     "answer": "PyTorch est une bibliothèque open source développée par Facebook pour créer et entraîner des modèles de deep learning. Elle est très populaire dans la recherche en IA."
   },
   {
-    "question": "C'est quoi scikit-learn ?",
+    "question": "Qu'est ce que scikit-learn ?",
     "answer": "Scikit-learn est une bibliothèque Python qui fournit des outils simples et efficaces pour le machine learning, comme la classification, la régression, le clustering et la réduction de dimensions."
   },
   {
-    "question": "C'est quoi NLTK ?",
+    "question": "Qu'est ce que NLTK ?",
     "answer": "NLTK (Natural Language Toolkit) est une bibliothèque Python pour le traitement du langage naturel. Elle fournit des outils pour la tokenisation, le stemming, la lemmatisation et l'analyse syntaxique."
   },
   {
-    "question": "C'est quoi la cosine similarity ?",
+    "question": "Qu'est ce que la cosine similarity ?",
     "answer": "La cosine similarity est une mesure de similarité entre deux vecteurs. Elle calcule le cosinus de l'angle entre eux. En NLP, elle est utilisée pour mesurer la similarité entre deux textes."
   },
   {
-    "question": "C'est quoi la tokenisation ?",
+    "question": "Qu'est ce que la tokenisation ?",
     "answer": "La tokenisation est le processus de découpage d'un texte en unités plus petites appelées tokens, qui peuvent être des mots, des phrases ou des caractères."
   },
   {
-    "question": "C'est quoi le stemming ?",
+    "question": "Qu'est ce que le stemming ?",
     "answer": "Le stemming est une technique de NLP qui consiste à réduire un mot à sa racine. Par exemple, 'apprendre', 'apprentissage' et 'apprenant' donnent tous la racine 'apprend'."
   },
   {
-    "question": "C'est quoi la lemmatisation ?",
+    "question": "Qu'est ce que la lemmatisation ?",
     "answer": "La lemmatisation est une technique de NLP similaire au stemming mais plus précise. Elle réduit un mot à sa forme de base (lemme) en tenant compte du contexte grammatical."
   },
   {
-    "question": "C'est quoi un chatbot ?",
+    "question": "Qu'est ce que  un chatbot ?",
     "answer": "Un chatbot est un programme informatique qui simule une conversation avec un humain. Il utilise l'IA et le NLP pour comprendre les questions et générer des réponses appropriées."
   },
   {
-    "question": "C'est quoi CodeAlpha ?",
+    "question": "Qu'est ce que CodeAlpha ?",
     "answer": "CodeAlpha est une entreprise leader en développement logiciel dédiée à l'innovation et l'excellence dans les technologies émergentes. Elle offre des programmes d'internship en IA, développement web et autres domaines tech."
   },
   {
@@ -132,23 +132,23 @@
     "answer": "Le programme CodeAlpha IA comprend 4 tâches : un outil de traduction de langues, un chatbot FAQ, la génération de musique avec l'IA et la détection d'objets en temps réel."
   },
   {
-    "question": "C'est quoi un dataset ?",
+    "question": "Qu'est ce que  un dataset ?",
     "answer": "Un dataset est un ensemble de données organisées utilisées pour entraîner, valider et tester des modèles de machine learning. La qualité du dataset est cruciale pour les performances du modèle."
   },
   {
-    "question": "C'est quoi la classification en machine learning ?",
+    "question": "Qu'est ce que la classification en machine learning ?",
     "answer": "La classification est une tâche de machine learning supervisé qui consiste à prédire la catégorie ou la classe d'une nouvelle observation. Par exemple, classer un email comme spam ou non spam."
   },
   {
-    "question": "C'est quoi la régression en machine learning ?",
+    "question": "Qu'est ce que la régression en machine learning ?",
     "answer": "La régression est une tâche de machine learning supervisé qui consiste à prédire une valeur numérique continue. Par exemple, prédire le prix d'une maison en fonction de ses caractéristiques."
   },
   {
-    "question": "C'est quoi le clustering ?",
+    "question": "Qu'est ce que   le clustering ?",
     "answer": "Le clustering est une tâche de machine learning non supervisé qui consiste à regrouper des données similaires en groupes appelés clusters, sans utiliser de labels prédéfinis."
   },
   {
-    "question": "C'est quoi une API en IA ?",
+    "question": "Qu'est ce que  une API en IA ?",
     "answer": "Une API (Application Programming Interface) en IA est une interface qui permet à des applications d'accéder à des modèles d'IA sans avoir à les développer elles-mêmes. Par exemple, l'API de ChatGPT ou de Google Translate."
   },
   {
@@ -160,11 +160,11 @@
     "answer": "Les principaux risques de l'IA incluent les biais algorithmiques, la perte d'emplois, les problèmes de confidentialité des données, la désinformation et les questions éthiques sur la prise de décision automatisée."
   },
   {
-    "question": "Comment apprendre l'IA ?",
+    "question": "Qu'est ce que  Comment apprendre l'IA ?",
     "answer": "Pour apprendre l'IA, commencez par Python, puis les mathématiques (algèbre linéaire, statistiques), ensuite le machine learning avec scikit-learn, puis le deep learning avec TensorFlow ou PyTorch. Des plateformes comme Coursera, edX et Kaggle sont très utiles."
   },
   {
-    "question": "C'est quoi Flask ?",
+    "question": "Qu'est ce que  Flask ?",
     "answer": "Flask est un framework web Python léger et flexible qui permet de créer des applications web et des APIs rapidement. Il est très utilisé pour déployer des modèles d'IA en production."
   },
   {
