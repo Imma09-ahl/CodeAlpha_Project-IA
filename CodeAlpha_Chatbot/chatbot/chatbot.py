@@ -49,38 +49,44 @@ def clean_text(text):
 # ===========================
 # TROUVER LA MEILLEURE REPONSE
 # ===========================
-def get_best_response(user_question, threshold=0.2):
+import difflib
+
+def get_best_response(user_question, threshold=0.12):
     faqs = load_faqs()
-    
-    # Préparer les questions des FAQ
+
     questions = [faq['question'] for faq in faqs]
     answers = [faq['answer'] for faq in faqs]
-    
-    # Nettoyer toutes les questions
+
     cleaned_questions = [clean_text(q) for q in questions]
     cleaned_user_question = clean_text(user_question)
-    
-    # Vectoriser avec TF-IDF
+
     all_texts = cleaned_questions + [cleaned_user_question]
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(all_texts)
-    
-    # Calculer la cosine similarity
+
     user_vector = tfidf_matrix[-1]
     faq_vectors = tfidf_matrix[:-1]
     similarities = cosine_similarity(user_vector, faq_vectors)[0]
-    
-    # Trouver la meilleure correspondance
+
     best_index = np.argmax(similarities)
     best_score = similarities[best_index]
-    
+
+    # Filet de sécurité : similarité de texte brut si TF-IDF est trop faible
+    if best_score < threshold:
+        ratios = [difflib.SequenceMatcher(None, cleaned_user_question, q).ratio() for q in cleaned_questions]
+        alt_index = int(np.argmax(ratios))
+        alt_score = ratios[alt_index]
+        if alt_score > best_score:
+            best_index = alt_index
+            best_score = alt_score
+
     if best_score < threshold:
         return {
-            'answer': "Je suis désolé, je n'ai pas compris votre question. Pouvez-vous la reformuler ?",
+            'answer': "Je suis désolé, je n'ai pas compris votre question.",
             'score': float(best_score),
             'matched_question': None
         }
-    
+
     return {
         'answer': answers[best_index],
         'score': float(best_score),
