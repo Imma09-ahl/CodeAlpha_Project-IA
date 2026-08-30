@@ -502,3 +502,47 @@
 .send-btn:active {
     transform: scale(0.95);
 }
+/* ============================
+   RESPONSIVE MOBILE
+   ============================ */
+@media (max-width: 768px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
+  .app {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.75rem;
+    overflow-x: auto;
+  }
+
+  .sidebar-logo {
+    margin-bottom: 0;
+    margin-right: auto;
+  }
+
+  .sidebar-menu {
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  .menu-item span {
+    display: none;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+}
