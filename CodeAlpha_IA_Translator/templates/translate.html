@@ -16,7 +16,7 @@
             <div class="nav-logo-icon">文A</div>
             AI Translator
         </a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="navLinks">
             <li><a href="/">Accueil</a></li>
             <li><a href="/translate" class="active">Traduction</a></li>
             <li><a href="/#features">Fonctionnalités</a></li>
@@ -26,6 +26,9 @@
         <div class="nav-right">
             <button class="theme-toggle" id="themeBtn">🌙</button>
             <a href="/translate" class="btn-primary">Commencer</a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
@@ -155,5 +158,6 @@
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/translate.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mobile-nav.js') }}"></script>
 </body>
 </html>

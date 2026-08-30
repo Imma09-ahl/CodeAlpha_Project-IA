@@ -336,3 +336,140 @@
     font-size: 11px;
     color: var(--text3);
 }
+/* ===========================
+   RESPONSIVE — TABLET (≤ 968px)
+=========================== */
+@media (max-width: 968px) {
+    .hero {
+        padding: 3rem 2rem;
+        gap: 2.5rem;
+    }
+
+    .hero-title {
+        font-size: 42px;
+    }
+
+    .features-strip {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1.5rem 2rem;
+        gap: 1rem 0;
+    }
+
+    .feat-item:nth-child(2) {
+        border-right: none;
+    }
+
+    .feat-item:nth-child(1),
+    .feat-item:nth-child(2) {
+        border-bottom: 1px solid var(--card-border);
+        padding-bottom: 1.25rem;
+    }
+
+    .how-reviews {
+        flex-direction: column;
+        padding: 3rem 2rem;
+        gap: 3rem;
+    }
+}
+
+/* ===========================
+   RESPONSIVE — MOBILE (≤ 768px)
+=========================== */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        min-height: auto;
+        padding: 2.5rem 1.5rem;
+        gap: 2.5rem;
+    }
+
+    .hero-left {
+        max-width: 100%;
+    }
+
+    .hero-badge {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-title {
+        font-size: 34px;
+    }
+
+    .hero-desc {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-btns {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .hero-right {
+        min-height: 280px;
+        order: -1;
+    }
+
+    .globe-wrap {
+        width: 240px;
+        height: 240px;
+    }
+
+    .globe-svg {
+        width: 240px;
+        height: 240px;
+    }
+
+    .lang-bubble {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .features-strip {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+
+    .feat-item {
+        border-right: none !important;
+        border-bottom: 1px solid var(--card-border);
+        padding: 1.25rem 0.5rem;
+    }
+
+    .feat-item:last-child {
+        border-bottom: none;
+    }
+
+    .how-reviews {
+        padding: 2.5rem 1.5rem;
+        gap: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 19px;
+    }
+
+    .review-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .btn-hero-primary,
+    .btn-hero-outline {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+    }
+}

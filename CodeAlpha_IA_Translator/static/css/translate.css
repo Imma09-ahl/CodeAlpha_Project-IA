@@ -313,3 +313,131 @@
     background: #dc2626;
     color: white;
 }
+/* ===========================
+   RESPONSIVE — TABLET (≤ 968px)
+=========================== */
+@media (max-width: 968px) {
+    .translate-section {
+        padding: 0 1.5rem;
+    }
+}
+
+/* ===========================
+   RESPONSIVE — MOBILE (≤ 768px)
+=========================== */
+@media (max-width: 768px) {
+    .translate-header {
+        padding: 2rem 1.25rem 0.75rem;
+    }
+
+    .translate-header h1 {
+        font-size: 28px;
+    }
+
+    .translate-header p {
+        font-size: 14px;
+    }
+
+    .translate-section {
+        padding: 0 1.25rem;
+        margin: 1.5rem auto;
+    }
+
+    /* Empile les 2 panneaux au lieu de côte à côte */
+    .translate-box {
+        flex-direction: column;
+        border-radius: 14px;
+    }
+
+    .translate-textarea {
+        min-height: 140px;
+        font-size: 15px;
+        padding: 1rem;
+    }
+
+    .panel-header {
+        padding: 0.85rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .lang-select {
+        font-size: 13px;
+        padding: 6px 10px;
+        max-width: 65%;
+    }
+
+    /* Bouton swap : passe à l'horizontale entre les 2 panneaux empilés */
+    .swap-container {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid var(--card-border);
+        border-bottom: 1px solid var(--card-border);
+        padding: 0.5rem 0;
+    }
+
+    .swap-btn {
+        transform: rotate(90deg);
+    }
+
+    .panel-footer {
+        padding: 0.6rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .icon-btn {
+        font-size: 12px;
+    }
+
+    .translate-btn {
+        width: 100%;
+        padding: 14px 0;
+    }
+
+    .translate-btn-container {
+        padding: 0 1.25rem;
+    }
+
+    .history-section {
+        padding: 0 1.25rem 2.5rem;
+        margin: 2rem auto;
+    }
+
+    .history-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .history-texts {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0.35rem;
+    }
+
+    .history-arrow {
+        display: none;
+    }
+
+    .history-langs {
+        white-space: normal;
+    }
+}
+
+@media (max-width: 480px) {
+    .translate-header h1 {
+        font-size: 24px;
+    }
+
+    .char-count {
+        font-size: 11px;
+    }
+}
