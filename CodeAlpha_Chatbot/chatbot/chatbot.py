@@ -35,17 +35,21 @@ def load_faqs():
 # ===========================
 lemmatizer = WordNetLemmatizer()
 
-def clean_text(text):
-    # Convertir en minuscules
-    text = text.lower()
-    # Tokeniser
-    tokens = word_tokenize(text)
-    # Supprimer les mots inutiles et la ponctuation
-    stop_words = set(stopwords.words('french') + stopwords.words('english'))
-    tokens = [lemmatizer.lemmatize(t) for t in tokens 
-              if t.isalnum() and t not in stop_words]
-    return ' '.join(tokens)
+import re
 
+def clean_text(text):
+    text = text.lower()
+    # Remplacer les apostrophes pour bien séparer l', d', qu', c'...
+    text = text.replace("'", " ").replace("'", " ")
+    # Extraire uniquement les mots (lettres, accents inclus)
+    tokens = re.findall(r"[a-zàâäéèêëïîôöùûüç0-9]+", text)
+    stop_words = set(stopwords.words('french')) | set(stopwords.words('english'))
+    # Mots de liaison/question qui polluent la comparaison
+    extra_stopwords = {'quoi', 'cest', 'quest', 'qu', 'ce', 'un', 'une',
+                        'les', 'la', 'le', 'de', 'du', 'des', 'est', 'ca', 'ça'}
+    stop_words = stop_words | extra_stopwords
+    tokens = [lemmatizer.lemmatize(t) for t in tokens if t not in stop_words]
+    return ' '.join(tokens)
 # ===========================
 # TROUVER LA MEILLEURE REPONSE
 # ===========================
