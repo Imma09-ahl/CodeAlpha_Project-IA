@@ -8,7 +8,8 @@ def get_connection():
         password=Config.DB_PASSWORD,
         database=Config.DB_NAME,
         port=Config.DB_PORT,
-        cursorclass=pymysql.cursors.DictCursor
+        cursorclass=pymysql.cursors.DictCursor,
+        ssl={"ssl": {}}
     )
 
 def get_all_languages():
