@@ -4,6 +4,11 @@ import nltk
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from google import genai
+from google.genai import types
+
+gemini_client = genai.Client()
+GEMINI_MODEL = "gemini-2.5-flash"
 
 # Télécharger les ressources NLTK nécessaires
 # Sur Vercel, seul /tmp est accessible en écriture
@@ -23,7 +28,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 # ===========================
-# CHARGER LES FAQ
+# CHARGER LES FAQ$
 # ===========================
 def load_faqs():
     faq_path = os.path.join(os.path.dirname(__file__), 'faqs.json')
@@ -42,7 +47,7 @@ def clean_text(text):
     # Remplacer les apostrophes pour bien séparer l', d', qu', c'...
     text = text.replace("'", " ").replace("'", " ")
     # Extraire uniquement les mots (lettres, accents inclus)
-    tokens = re.findall(r"[a-zàâäéèêëïîôöùûüç0-9]+", text)
+    tokens = re.findall(r"[a-zA-Zàâäéèêëïîôöùûüç0-9]+", text)
     stop_words = set(stopwords.words('french')) | set(stopwords.words('english'))
     # Mots de liaison/question qui polluent la comparaison
     extra_stopwords = {'quoi', 'cest', 'quest', 'qu', 'ce', 'un', 'une',
@@ -55,41 +60,41 @@ def clean_text(text):
 # ===========================
 import difflib
 
-def get_best_response(user_question, threshold=0.12):
-    faqs = load_faqs()
+def ask_gemini_with_search(user_question: str) -> str:
+    grounding_tool = types.Tool(google_search=types.GoogleSearch())
 
-    questions = [faq['question'] for faq in faqs]
-    answers = [faq['answer'] for faq in faqs]
+    config = types.GenerateContentConfig(
+        tools=[grounding_tool],
+        system_instruction=(
+            "Tu es l'assistant du chatbot AIBot FAQ. "
+            "Réponds toujours en français, de façon claire et concise "
+            "(3 à 5 phrases maximum). Si tu utilises des informations "
+            "trouvées sur internet, base-toi sur des sources fiables."
+        ),
+    )
 
-    cleaned_questions = [clean_text(q) for q in questions]
-    cleaned_user_question = clean_text(user_question)
+    response = gemini_client.models.generate_content(
+        model=GEMINI_MODEL,
+        contents=user_question,
+        config=config,
+    )
 
-    all_texts = cleaned_questions + [cleaned_user_question]
-    vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(all_texts)
-
-    user_vector = tfidf_matrix[-1]
-    faq_vectors = tfidf_matrix[:-1]
-    similarities = cosine_similarity(user_vector, faq_vectors)[0]
-
-    best_index = np.argmax(similarities)
-    best_score = similarities[best_index]
-
-    # Filet de sécurité : similarité de texte brut si TF-IDF est trop faible
-    if best_score < threshold:
-        ratios = [difflib.SequenceMatcher(None, cleaned_user_question, q).ratio() for q in cleaned_questions]
-        alt_index = int(np.argmax(ratios))
-        alt_score = ratios[alt_index]
-        if alt_score > best_score:
-            best_index = alt_index
-            best_score = alt_score
+    return response.text
 
     if best_score < threshold:
-        return {
-            'answer': "Je suis désolé, je n'ai pas compris votre question.",
-            'score': float(best_score),
-            'matched_question': None
-        }
+        try:
+            gemini_answer = ask_gemini_with_search(user_question)
+            return {
+                'answer': gemini_answer,
+                'score': None,
+                'matched_question': None
+            }
+        except Exception as e:
+            return {
+                'answer': "Je suis désolé, je n'ai pas compris votre question.",
+                'score': float(best_score),
+                'matched_question': None
+            }
 
     return {
         'answer': answers[best_index],
