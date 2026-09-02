@@ -8,7 +8,7 @@ from google import genai
 from google.genai import types
 
 gemini_client = genai.Client()
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-3.6-flash"
 
 # Télécharger les ressources NLTK nécessaires
 # Sur Vercel, seul /tmp est accessible en écriture
@@ -106,11 +106,11 @@ def get_best_response(user_question: str):
                 'matched_question': None
             }
         except Exception as e:
-                return {
-                'answer': f"Erreur debug: {str(e)}",
+            return {
+                'answer': "Je suis désolé, je n'ai pas compris votre question.",
                 'score': float(best_score),
                 'matched_question': None
-                 }
+            }
     return {
         'answer': answers[best_index],
         'score': float(best_score),
