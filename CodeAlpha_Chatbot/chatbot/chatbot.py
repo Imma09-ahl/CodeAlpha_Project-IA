@@ -80,6 +80,22 @@ def ask_gemini_with_search(user_question: str) -> str:
     )
 
     return response.text
+def get_best_response(user_question: str):
+    faqs = load_faqs()
+    questions = [faq['question'] for faq in faqs]
+    answers = [faq['answer'] for faq in faqs]
+
+    cleaned_questions = [clean_text(q) for q in questions]
+    cleaned_user_question = clean_text(user_question)
+
+    vectorizer = TfidfVectorizer()
+    vectors = vectorizer.fit_transform(cleaned_questions + [cleaned_user_question])
+
+    cosine_sim = cosine_similarity(vectors[-1], vectors[:-1])
+    best_index = np.argmax(cosine_sim)
+    best_score = cosine_sim[0][best_index]
+
+    threshold = 0.3  # ajuste selon tes tests
 
     if best_score < threshold:
         try:
