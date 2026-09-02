@@ -105,12 +105,12 @@ def get_best_response(user_question: str):
                 'score': None,
                 'matched_question': None
             }
-                except Exception as e:
-            return {
+        except Exception as e:
+                return {
                 'answer': f"Erreur debug: {str(e)}",
                 'score': float(best_score),
                 'matched_question': None
-            }
+                 }
     return {
         'answer': answers[best_index],
         'score': float(best_score),
