@@ -15,3 +15,7 @@ class Config:
     # Flask
     SECRET_KEY = os.getenv('FLASK_SECRET_KEY')
     DEBUG = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
+
+    # Gemini
+    GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+    GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-3.6-flash')
