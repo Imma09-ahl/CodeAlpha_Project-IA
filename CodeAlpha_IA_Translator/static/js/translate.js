@@ -17,27 +17,75 @@ const speakTargetBtn= document.getElementById('speakTargetBtn');
 const historyList   = document.getElementById('historyList');
 const translationInfo = document.getElementById('translationInfo');
 
+// Cache des langues disponibles
+let availableLanguages = [];
+
+/**
+ * Helper de traduction sécurisé avec fallback.
+ */
+function translateMsg(key, params = {}) {
+    if (window.i18n && typeof window.i18n.t === 'function') {
+        return window.i18n.t(key, params);
+    }
+    return key;
+}
+
+/**
+ * Obtient le nom localisé d'une langue selon la langue d'interface active.
+ */
+function getLocalizedLangName(code, defaultName) {
+    if (code === 'auto') {
+        return translateMsg('translate.auto_detect');
+    }
+    const locName = translateMsg('languages.' + code);
+    return (locName && locName !== ('languages.' + code)) ? locName : defaultName;
+}
+
 // ===========================
 // CHARGER LES LANGUES
 // ===========================
 async function loadLanguages() {
     try {
         const response = await fetch('/api/languages');
-        const languages = await response.json();
+        availableLanguages = await response.json();
 
-        languages.forEach(lang => {
-            const option1 = new Option(lang.name, lang.code);
-            const option2 = new Option(lang.name, lang.code);
-            sourceLang.appendChild(option1);
-            targetLang.appendChild(option2);
-        });
+        renderLanguageDropdowns();
 
-        // Valeurs par défaut
-        sourceLang.value = 'fr';
-        targetLang.value = 'en';
+        // Valeurs par défaut initiales
+        if (!sourceLang.value) sourceLang.value = 'fr';
+        if (!targetLang.value) targetLang.value = 'en';
     } catch (error) {
         console.error('Erreur chargement langues:', error);
     }
+}
+
+/**
+ * Re-génère les libellés des dropdowns tout en conservant scrupuleusement
+ * les sélections sourceLang et targetLang de l'utilisateur.
+ */
+function renderLanguageDropdowns() {
+    const currentSrc = sourceLang.value || 'fr';
+    const currentTgt = targetLang.value || 'en';
+
+    // 1. Source Language
+    sourceLang.innerHTML = '';
+    const autoOpt = new Option(getLocalizedLangName('auto', 'Detect Language'), 'auto');
+    autoOpt.setAttribute('data-i18n', 'translate.auto_detect');
+    sourceLang.appendChild(autoOpt);
+
+    availableLanguages.forEach(lang => {
+        const label = getLocalizedLangName(lang.code, lang.name);
+        sourceLang.appendChild(new Option(label, lang.code));
+    });
+    sourceLang.value = currentSrc;
+
+    // 2. Target Language
+    targetLang.innerHTML = '';
+    availableLanguages.forEach(lang => {
+        const label = getLocalizedLangName(lang.code, lang.name);
+        targetLang.appendChild(new Option(label, lang.code));
+    });
+    targetLang.value = currentTgt;
 }
 
 // ===========================
@@ -59,7 +107,7 @@ sourceText.addEventListener('input', () => {
 translateBtn.addEventListener('click', async () => {
     const text = sourceText.value.trim();
     if (!text) {
-        alert('Veuillez entrer un texte à traduire.');
+        alert(translateMsg('translate.alert_enter_text'));
         return;
     }
 
@@ -83,13 +131,21 @@ translateBtn.addEventListener('click', async () => {
 
         if (data.success) {
             translatedText.value = data.translated_text;
-            translationInfo.textContent = `Traduit de ${sourceLang.options[sourceLang.selectedIndex].text} vers ${targetLang.options[targetLang.selectedIndex].text}`;
+
+            const srcLabel = sourceLang.options[sourceLang.selectedIndex] ? sourceLang.options[sourceLang.selectedIndex].text : sourceLang.value;
+            const tgtLabel = targetLang.options[targetLang.selectedIndex] ? targetLang.options[targetLang.selectedIndex].text : targetLang.value;
+
+            translationInfo.textContent = translateMsg('translate.translated_info', {
+                src: srcLabel,
+                tgt: tgtLabel
+            });
+
             loadHistory();
         } else {
-            alert('Erreur lors de la traduction : ' + data.error);
+            alert(translateMsg('translate.alert_error') + data.error);
         }
     } catch (error) {
-        alert('Erreur de connexion au serveur.');
+        alert(translateMsg('translate.alert_network'));
     } finally {
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
@@ -101,6 +157,12 @@ translateBtn.addEventListener('click', async () => {
 // SWAP LANGUES
 // ===========================
 swapBtn.addEventListener('click', () => {
+    // Si la langue source est 'auto', ne pas la mettre dans la cible
+    if (sourceLang.value === 'auto') {
+        alert('Impossible d\'inverser lorsque la langue source est automatique.');
+        return;
+    }
+
     const tempLang = sourceLang.value;
     const tempText = sourceText.value;
 
@@ -118,9 +180,11 @@ swapBtn.addEventListener('click', () => {
 copyBtn.addEventListener('click', () => {
     if (!translatedText.value) return;
     navigator.clipboard.writeText(translatedText.value);
-    copyBtn.textContent = '✅ Copié !';
+
+    const originalText = translateMsg('translate.btn_copy');
+    copyBtn.textContent = translateMsg('translate.btn_copied');
     setTimeout(() => {
-        copyBtn.textContent = '📋 Copier';
+        copyBtn.textContent = originalText;
     }, 2000);
 });
 
@@ -140,7 +204,8 @@ clearBtn.addEventListener('click', () => {
 function speak(text, lang) {
     if (!text) return;
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang;
+    // Si la langue est 'auto', utiliser la langue de l'interface ou détecter
+    utterance.lang = (lang === 'auto') ? (window.i18n ? window.i18n.getLanguage() : 'en') : lang;
     window.speechSynthesis.speak(utterance);
 }
 
@@ -160,8 +225,8 @@ async function loadHistory() {
         const response = await fetch('/api/history');
         const history = await response.json();
 
-        if (history.length === 0) {
-            historyList.innerHTML = '<p class="no-history">Aucune traduction pour le moment.</p>';
+        if (!Array.isArray(history) || history.length === 0) {
+            historyList.innerHTML = `<p class="no-history" data-i18n="translate.history_empty">${translateMsg('translate.history_empty')}</p>`;
             return;
         }
 
@@ -181,17 +246,12 @@ async function loadHistory() {
 }
 
 // ===========================
-// INITIALISATION
-// ===========================
-loadLanguages();
-loadHistory();
-// ===========================
 // EFFACER L'HISTORIQUE
 // ===========================
 const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
 clearHistoryBtn.addEventListener('click', async () => {
-    if (!confirm('Voulez-vous vraiment effacer tout l\'historique ?')) return;
+    if (!confirm(translateMsg('translate.history_confirm'))) return;
     
     try {
         const response = await fetch('/api/history/clear', {
@@ -199,9 +259,34 @@ clearHistoryBtn.addEventListener('click', async () => {
         });
         const data = await response.json();
         if (data.success) {
-            historyList.innerHTML = '<p class="no-history">Aucune traduction pour le moment.</p>';
+            historyList.innerHTML = `<p class="no-history" data-i18n="translate.history_empty">${translateMsg('translate.history_empty')}</p>`;
         }
     } catch (error) {
         console.error('Erreur suppression historique:', error);
     }
 });
+
+// ===========================
+// ECOUTER LE CHANGEMENT DE LANGUE D'INTERFACE
+// ===========================
+window.addEventListener('interfaceLanguageChanged', () => {
+    // 1. Mettre à jour les labels des langues dans les sélecteurs
+    renderLanguageDropdowns();
+
+    // 2. Mettre à jour les boutons qui pourraient afficher un texte dynamique
+    if (copyBtn && !copyBtn.textContent.includes('✅')) {
+        copyBtn.textContent = translateMsg('translate.btn_copy');
+    }
+
+    // 3. Mettre à jour l'historique si vide
+    const noHistEl = historyList.querySelector('.no-history');
+    if (noHistEl) {
+        noHistEl.textContent = translateMsg('translate.history_empty');
+    }
+});
+
+// ===========================
+// INITIALISATION
+// ===========================
+loadLanguages();
+loadHistory();

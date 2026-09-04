@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Translator - Traduction</title>
+    <meta name="i18n-title" content="meta.title_translate">
+    <title>AI Translator - Instant Translation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/translate.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,15 +18,16 @@
             AI Translator
         </a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/translate" class="active">Traduction</a></li>
-            <li><a href="/#features">Fonctionnalités</a></li>
-            <li><a href="/#how">À propos</a></li>
-            <li><a href="/#contact">Contact</a></li>
+            <li><a href="/" data-i18n="nav.home">Home</a></li>
+            <li><a href="/translate" class="active" data-i18n="nav.translate">Translation</a></li>
+            <li><a href="/#features" data-i18n="nav.features">Features</a></li>
+            <li><a href="/#how" data-i18n="nav.about">About</a></li>
+            <li><a href="/#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
         <div class="nav-right">
-            <button class="theme-toggle" id="themeBtn">🌙</button>
-            <a href="/translate" class="btn-primary">Commencer</a>
+            <div class="lang-switcher-container"></div>
+            <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">🌙</button>
+            <a href="/translate" class="btn-primary" data-i18n="nav.start_btn">Get Started</a>
             <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
@@ -34,8 +36,8 @@
 
     <!-- PAGE HEADER -->
     <section class="translate-header">
-        <h1>Traduction <span>Instantanée</span></h1>
-        <p>Traduisez du texte dans plus de 100 langues grâce à l'Intelligence Artificielle</p>
+        <h1><span data-i18n="translate.header_title">Instant</span> <span data-i18n="translate.header_highlight">Translation</span></h1>
+        <p data-i18n="translate.header_desc">Translate text across 100+ languages powered by Artificial Intelligence</p>
     </section>
 
     <!-- TRANSLATE BOX -->
@@ -46,44 +48,46 @@
             <div class="translate-panel">
                 <div class="panel-header">
                     <select class="lang-select" id="sourceLang">
-                        <option value="auto">Détecter la langue</option>
+                        <option value="auto" data-i18n="translate.auto_detect">Detect Language</option>
                     </select>
                     <span class="char-count" id="charCount">0 / 500</span>
                 </div>
                 <textarea 
                     class="translate-textarea" 
                     id="sourceText" 
-                    placeholder="Entrez votre texte ici..."
+                    placeholder="Enter your text here..."
+                    data-i18n-placeholder="translate.source_placeholder"
                     maxlength="500"
                 ></textarea>
                 <div class="panel-footer">
-                    <button class="icon-btn" id="clearBtn" title="Effacer">🗑️ Effacer</button>
-                    <button class="icon-btn" id="speakSourceBtn" title="Écouter">🔊 Écouter</button>
+                    <button class="icon-btn" id="clearBtn" title="Clear" data-i18n-title="translate.btn_clear" data-i18n="translate.btn_clear">🗑️ Clear</button>
+                    <button class="icon-btn" id="speakSourceBtn" title="Listen" data-i18n-title="translate.btn_listen" data-i18n="translate.btn_listen">🔊 Listen</button>
                 </div>
             </div>
 
             <!-- BOUTON SWAP -->
             <div class="swap-container">
-                <button class="swap-btn" id="swapBtn" title="Inverser les langues">⇄</button>
+                <button class="swap-btn" id="swapBtn" title="Swap languages" data-i18n-title="translate.btn_swap_title">⇄</button>
             </div>
 
             <!-- LANGUE CIBLE -->
             <div class="translate-panel">
                 <div class="panel-header">
                     <select class="lang-select" id="targetLang">
-                        <option value="en">Anglais</option>
+                        <!-- Options chargées dynamiquement -->
                     </select>
-                    <button class="copy-btn" id="copyBtn" title="Copier">📋 Copier</button>
+                    <button class="copy-btn" id="copyBtn" title="Copy" data-i18n-title="translate.btn_copy" data-i18n="translate.btn_copy">📋 Copy</button>
                 </div>
                 <textarea 
                     class="translate-textarea result" 
                     id="translatedText" 
-                    placeholder="La traduction apparaîtra ici..."
+                    placeholder="Translation will appear here..."
+                    data-i18n-placeholder="translate.target_placeholder"
                     readonly
                 ></textarea>
                 <div class="panel-footer">
                     <span class="translation-info" id="translationInfo"></span>
-                    <button class="icon-btn" id="speakTargetBtn" title="Écouter">🔊 Écouter</button>
+                    <button class="icon-btn" id="speakTargetBtn" title="Listen" data-i18n-title="translate.btn_listen" data-i18n="translate.btn_listen">🔊 Listen</button>
                 </div>
             </div>
 
@@ -92,8 +96,8 @@
         <!-- BOUTON TRADUIRE -->
         <div class="translate-btn-container">
             <button class="translate-btn" id="translateBtn">
-                <span id="btnText">✨ Traduire</span>
-                <span id="btnLoader" style="display:none;">⏳ Traduction en cours...</span>
+                <span id="btnText" data-i18n="translate.btn_translate">✨ Translate</span>
+                <span id="btnLoader" style="display:none;" data-i18n="translate.btn_translating">⏳ Translating...</span>
             </button>
         </div>
     </section>
@@ -101,11 +105,11 @@
     <!-- HISTORIQUE -->
     <section class="history-section">
         <div class="history-header">
-    <h2 class="section-title">📋 Historique des traductions</h2>
-    <button class="clear-btn" id="clearHistoryBtn">🗑️ Effacer l'historique</button>
-</div>
+            <h2 class="section-title" data-i18n="translate.history_title">📋 Translation History</h2>
+            <button class="clear-btn" id="clearHistoryBtn" data-i18n="translate.history_clear">🗑️ Clear History</button>
+        </div>
         <div class="history-list" id="historyList">
-            <p class="no-history">Aucune traduction pour le moment.</p>
+            <p class="no-history" data-i18n="translate.history_empty">No translations yet.</p>
         </div>
     </section>
 
@@ -117,7 +121,7 @@
                     <div class="footer-logo-icon">文A</div>
                     AI Translator
                 </div>
-                <p>Brisez les barrières linguistiques grâce à l'Intelligence Artificielle.</p>
+                <p data-i18n="footer.tagline">Break down language barriers with Artificial Intelligence.</p>
                 <div class="social-links">
                     <a class="social-btn" href="#">f</a>
                     <a class="social-btn" href="#">𝕏</a>
@@ -126,36 +130,39 @@
                 </div>
             </div>
             <div class="footer-col">
-                <h5>Liens rapides</h5>
+                <h5 data-i18n="footer.quick_links">Quick Links</h5>
                 <ul>
-                    <li><a href="/">Accueil</a></li>
-                    <li><a href="/translate">Traduction</a></li>
-                    <li><a href="/#features">Fonctionnalités</a></li>
-                    <li><a href="/#how">À propos</a></li>
-                    <li><a href="/#contact">Contact</a></li>
+                    <li><a href="/" data-i18n="nav.home">Home</a></li>
+                    <li><a href="/translate" data-i18n="nav.translate">Translation</a></li>
+                    <li><a href="/#features" data-i18n="nav.features">Features</a></li>
+                    <li><a href="/#how" data-i18n="nav.about">About</a></li>
+                    <li><a href="/#contact" data-i18n="nav.contact">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h5>Ressources</h5>
+                <h5 data-i18n="footer.resources">Resources</h5>
                 <ul>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#" data-i18n="footer.blog">Blog</a></li>
+                    <li><a href="#" data-i18n="footer.privacy">Privacy Policy</a></li>
+                    <li><a href="#" data-i18n="footer.terms">Terms of Service</a></li>
+                    <li><a href="#" data-i18n="footer.faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h5>Restez connecté</h5>
-                <p>Abonnez-vous pour recevoir nos mises à jour.</p>
+                <h5 data-i18n="footer.stay_connected">Stay Connected</h5>
+                <p data-i18n="footer.newsletter_desc">Subscribe to receive our latest updates.</p>
                 <div class="email-row">
-                    <input type="email" placeholder="Votre email">
+                    <input type="email" placeholder="Your email address" data-i18n-placeholder="footer.email_placeholder">
                     <button>→</button>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">© 2026 AI Language Translator. Tous droits réservés.</div>
+        <div class="footer-bottom" data-i18n="footer.rights">© 2026 AI Language Translator. All rights reserved.</div>
     </footer>
 
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', filename='js/translations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/i18n.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/translate.js') }}"></script>
     <script src="{{ url_for('static', filename='js/mobile-nav.js') }}"></script>

@@ -1,38 +1,52 @@
+import logging
 from flask import Blueprint, render_template, request, jsonify
-import requests
+from services.translation_service import translate_text
 from models.translation_model import save_translation, get_translation_history
 from models.language_model import get_all_languages
+
+logger = logging.getLogger(__name__)
 
 translation_bp = Blueprint('translation', __name__)
 
 @translation_bp.route('/translate')
 def translate_page():
-    languages = get_all_languages()
+    languages = []
+    try:
+        languages = get_all_languages()
+    except Exception as e:
+        logger.warning(f"Impossible de récupérer les langues depuis la base de données : {e}")
     return render_template('translate.html', languages=languages)
 
 @translation_bp.route('/api/translate', methods=['POST'])
 def translate():
-    data = request.get_json()
-    source_text = data.get('source_text')
-    source_lang = data.get('source_lang')
-    target_lang = data.get('target_lang')
+    data = request.get_json() or {}
+    source_text = data.get('source_text', '').strip()
+    source_lang = data.get('source_lang', 'auto')
+    target_lang = data.get('target_lang', 'en')
+
+    if not source_text:
+        return jsonify({
+            'success': False,
+            'error': 'Le texte source ne peut pas être vide.'
+        }), 400
 
     try:
-        response = requests.get(
-            'https://api.mymemory.translated.net/get',
-            params={
-                'q': source_text,
-                'langpair': f'{source_lang}|{target_lang}'
-            }
-        )
-        result = response.json()
-        translated_text = result['responseData']['translatedText']
-        save_translation(source_text, translated_text, source_lang, target_lang)
+        translated_text, detected_lang = translate_text(source_text, source_lang, target_lang)
+
+        # Enregistrement en base de données non-bloquant
+        try:
+            effective_src = detected_lang if source_lang == 'auto' else source_lang
+            save_translation(source_text, translated_text, effective_src, target_lang)
+        except Exception as db_err:
+            logger.warning(f"Erreur non-bloquante lors de la sauvegarde MySQL : {db_err}")
+
         return jsonify({
             'success': True,
-            'translated_text': translated_text
+            'translated_text': translated_text,
+            'detected_lang': detected_lang
         })
     except Exception as e:
+        logger.error(f"Erreur lors de la traduction : {e}")
         return jsonify({
             'success': False,
             'error': str(e)
@@ -66,8 +80,13 @@ def get_languages():
 
 @translation_bp.route('/api/history')
 def history():
-    translations = get_translation_history()
-    return jsonify(translations)
+    try:
+        translations = get_translation_history()
+        return jsonify(translations)
+    except Exception as e:
+        logger.warning(f"Erreur lors de la récupération de l'historique : {e}")
+        return jsonify([])
+
 @translation_bp.route('/api/history/clear', methods=['DELETE'])
 def clear_history():
     try:
