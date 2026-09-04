@@ -6,7 +6,18 @@
     const STORAGE_KEY = 'app_interface_lang';
     const DEFAULT_LANG = 'en';
 
-    const SUPPORTED_LANGUAGES = [
+    /**
+     * 1. Liste de référence des langues supportées pour la TRADUCTION DES TEXTES.
+     */
+    const supportedTranslationLanguages = [
+        'fr', 'en', 'es', 'de', 'it', 'pt', 'ar', 'zh', 'ja', 'ru',
+        'nl', 'pl', 'tr', 'ko', 'sv', 'da', 'fi', 'el', 'he', 'hi'
+    ];
+
+    /**
+     * 2. Liste des langues initialement disponibles pour la TRADUCTION DU SITE / INTERFACE (avant modification).
+     */
+    const initialSiteLanguages = [
         { code: 'en', name: 'English', flag: '🇬🇧' },
         { code: 'fr', name: 'Français', flag: '🇫🇷' },
         { code: 'pt', name: 'Português', flag: '🇵🇹' },
@@ -18,6 +29,63 @@
         { code: 'ja', name: '日本語', flag: '🇯🇵' },
         { code: 'ru', name: 'Русский', flag: '🇷🇺' }
     ];
+
+    /**
+     * Catalogue unifié de métadonnées des langues (nom natif, drapeau, sens d'écriture).
+     */
+    const LANGUAGE_CATALOG = {
+        en: { code: 'en', name: 'English', flag: '🇬🇧' },
+        fr: { code: 'fr', name: 'Français', flag: '🇫🇷' },
+        pt: { code: 'pt', name: 'Português', flag: '🇵🇹' },
+        es: { code: 'es', name: 'Español', flag: '🇪🇸' },
+        de: { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+        it: { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+        ar: { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl' },
+        zh: { code: 'zh', name: '中文', flag: '🇨🇳' },
+        ja: { code: 'ja', name: '日本語', flag: '🇯🇵' },
+        ru: { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+        nl: { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
+        pl: { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+        tr: { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+        ko: { code: 'ko', name: '한국어', flag: '🇰🇷' },
+        sv: { code: 'sv', name: 'Svenska', flag: '🇸🇪' },
+        da: { code: 'da', name: 'Dansk', flag: '🇩🇰' },
+        fi: { code: 'fi', name: 'Suomi', flag: '🇫🇮' },
+        el: { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
+        he: { code: 'he', name: 'עברית', flag: '🇮🇱', dir: 'rtl' },
+        hi: { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' }
+    };
+
+    /**
+     * Synchronise la liste des langues du site avec la liste des langues de traduction des textes.
+     * Conserve toutes les langues existantes du site,
+     * détecte toutes les langues présentes dans supportedTranslationLanguages mais absentes du site,
+     * et les ajoute automatiquement au système de traduction du site.
+     */
+    function syncLanguages() {
+        const siteCodes = new Set(initialSiteLanguages.map(l => l.code));
+        const missingCodes = supportedTranslationLanguages.filter(code => !siteCodes.has(code));
+
+        const synchronized = [...initialSiteLanguages];
+        missingCodes.forEach(code => {
+            const meta = LANGUAGE_CATALOG[code] || {
+                code: code,
+                name: code.toUpperCase(),
+                flag: '🌐'
+            };
+            synchronized.push(meta);
+        });
+
+        return {
+            siteLanguagesBefore: [...initialSiteLanguages],
+            translationLanguages: [...supportedTranslationLanguages],
+            missingLanguages: missingCodes.map(code => LANGUAGE_CATALOG[code] || { code }),
+            synchronizedLanguages: synchronized
+        };
+    }
+
+    const syncState = syncLanguages();
+    const SUPPORTED_LANGUAGES = syncState.synchronizedLanguages;
 
     let currentLang = DEFAULT_LANG;
 
@@ -250,7 +318,11 @@
         t: t,
         setLanguage: setLanguage,
         getLanguage: () => currentLang,
-        getSupportedLanguages: () => [...SUPPORTED_LANGUAGES]
+        getSupportedLanguages: () => [...SUPPORTED_LANGUAGES],
+        getTranslationLanguages: () => [...supportedTranslationLanguages],
+        getSiteLanguagesBefore: () => [...initialSiteLanguages],
+        getMissingSiteLanguages: () => [...syncState.missingLanguages],
+        syncLanguages: syncLanguages
     };
 
     // Auto-initialisation lorsque le DOM est prêt

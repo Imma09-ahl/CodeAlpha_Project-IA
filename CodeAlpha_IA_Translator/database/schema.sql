@@ -31,4 +31,14 @@ INSERT INTO languages (code, name) VALUES
 ('ar', 'Arabe'),
 ('zh', 'Chinois'),
 ('ja', 'Japonais'),
-('ru', 'Russe');
+('ru', 'Russe'),
+('nl', 'Néerlandais'),
+('pl', 'Polonais'),
+('tr', 'Turc'),
+('ko', 'Coréen'),
+('sv', 'Suédois'),
+('da', 'Danois'),
+('fi', 'Finnois'),
+('el', 'Grec'),
+('he', 'Hébreu'),
+('hi', 'Hindi');
